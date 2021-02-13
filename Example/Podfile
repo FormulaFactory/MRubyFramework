@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'MRubyFramework_Example' do
+  pod 'MRubyFramework', :path => '../'
+
+  target 'MRubyFramework_Tests' do
+    inherit! :search_paths
+
+    pod 'Kiwi'
+  end
+end
