@@ -1,0 +1,6 @@
+framework module Pods_MRubyFramework_Tests {
+  umbrella header "Pods-MRubyFramework_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

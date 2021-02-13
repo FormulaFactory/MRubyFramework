@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MRubyFramework'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of MRubyFramework.'
+  s.version          = '2.1.2'
+  s.summary          = 'MRuby for iOS'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,19 +18,26 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  MRuby Framework for iOS;
                        DESC
 
-  s.homepage         = 'https://github.com/ping.cao/MRubyFramework'
+  s.homepage         = 'https://github.com/tailang/MRubyFramework'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'ping.cao' => 'pingcao@clubfactory.com' }
-  s.source           = { :git => 'https://github.com/ping.cao/MRubyFramework.git', :tag => s.version.to_s }
+  s.author           = { 'ping.cao' => 'caopingcpu@163.com' }
+  s.source           = { :git => 'https://github.com/tailang/MRubyFramework.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
 
   s.source_files = 'MRubyFramework/Classes/**/*'
+
+  s.ios.deployment_target = '9.0'
+  s.vendored_frameworks = 'ios/MRuby.framework'
+  s.libraries = 'c++'
+  s.frameworks = 'Foundation'
+
+  s.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
   
   # s.resource_bundles = {
   #   'MRubyFramework' => ['MRubyFramework/Assets/*.png']

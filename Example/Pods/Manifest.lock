@@ -1,0 +1,23 @@
+PODS:
+  - Kiwi (3.0.0)
+  - MRubyFramework (0.1.0)
+
+DEPENDENCIES:
+  - Kiwi
+  - MRubyFramework (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Kiwi
+
+EXTERNAL SOURCES:
+  MRubyFramework:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Kiwi: fbeafef0f00e4d8f7dcb3420a4930afe70af77f7
+  MRubyFramework: f7d36a6545f4a9e9bb96b0100257c511554a5fc7
+
+PODFILE CHECKSUM: 9a61b8b9c247647005fe2e4903fa6278c9086b8d
+
+COCOAPODS: 1.8.4
