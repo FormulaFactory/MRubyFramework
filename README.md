@@ -22,7 +22,7 @@ pod 'MRubyFramework'
 
 ## Author
 
-ping.cao, pingcao@clubfactory.com
+ping.cao
 
 ## License
 
