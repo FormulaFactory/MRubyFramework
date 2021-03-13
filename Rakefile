@@ -66,7 +66,7 @@ task :generate_modulemap do
 end
 
 desc 'Build MRuby for iOS support module'
-task :build_mruby_support_module => [:clean, :generate_headers, :generate_modulemap] do
+task :build_mruby => [:clean, :generate_headers, :generate_modulemap] do
   puts ">>>>>>> build_mruby task"
   Dir.chdir('mruby') do
     ENV['MRUBY_CONFIG'] = '../build_config.rb'
@@ -87,25 +87,25 @@ task :build_mruby_support_module => [:clean, :generate_headers, :generate_module
   FileUtils.cp 'mruby-umbrella.h', 'ios/MRuby.framework/Headers'
 end
 
-desc 'Build MRuby for iOS do not support module'
-task :build_mruby => [:clean, :generate_headers] do
-  puts ">>>>>>> build_mruby task"
-  Dir.chdir('mruby') do
-    ENV['MRUBY_CONFIG'] = '../build_config.rb'
-    system 'rake'
+# desc 'Build MRuby for iOS do not support module'
+# task :build_mruby => [:clean, :generate_headers] do
+#   puts ">>>>>>> build_mruby task"
+#   Dir.chdir('mruby') do
+#     ENV['MRUBY_CONFIG'] = '../build_config.rb'
+#     system 'rake'
 
-    Dir.chdir('build') do
-      FileUtils.mkdir_p 'ios-universal'
-      `lipo ios/lib/libmruby.a ios-simulator/lib/libmruby.a -create -output ios-universal/libmruby.a`
-    end
-  end
+#     Dir.chdir('build') do
+#       FileUtils.mkdir_p 'ios-universal'
+#       `lipo ios/lib/libmruby.a ios-simulator/lib/libmruby.a -create -output ios-universal/libmruby.a`
+#     end
+#   end
 
-  FileUtils.mkdir_p 'ios/MRuby.framework/Headers'
-  #FileUtils.cp_r 'mruby/include/.', 'ios/MRuby.framework/Headers'
-  FileUtils.cp_r 'Headers/.', 'ios/MRuby.framework/Headers'
-  FileUtils.cp 'Info.plist', 'ios/MRuby.framework'
-  FileUtils.cp 'mruby/build/ios-universal/libmruby.a', 'ios/MRuby.framework/MRuby'
-end
+#   FileUtils.mkdir_p 'ios/MRuby.framework/Headers'
+#   #FileUtils.cp_r 'mruby/include/.', 'ios/MRuby.framework/Headers'
+#   FileUtils.cp_r 'Headers/.', 'ios/MRuby.framework/Headers'
+#   FileUtils.cp 'Info.plist', 'ios/MRuby.framework'
+#   FileUtils.cp 'mruby/build/ios-universal/libmruby.a', 'ios/MRuby.framework/MRuby'
+# end
 
 desc 'Set MRuby submodule to latest release'
 task :mruby_latest do
@@ -129,4 +129,13 @@ task :mruby_stable do
          'cd mruby && '\
          'git checkout stable && '\
          'git pull --rebase'
+end
+
+desc 'Set Mruby submodule to specified tag'
+task :mruby_tag do |task, args|
+  tag = args.extras[0]
+  puts "checkout to #{tag}"
+  system  'git submodule update --remote &&' \
+          'cd mruby &&' \
+          "git checkout #{tag}"
 end
