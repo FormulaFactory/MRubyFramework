@@ -2,11 +2,27 @@
 
 ## Installation
 
-MRubyFramework is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
 ```ruby
 pod 'MRubyFramework'
+```
+
+## Build your framework
+
+### Clone repo 
+```
+git clone --recurse-submodules git@github.com:FormulaFactory/MRubyFramework.git
+```
+
+### Checkout repo tag
+```
+git checkout 2.1.2
+
+rake mruby_latest
+```
+
+### Build 
+```
+rake  ## framework path: ./ios/MRuby.framework   
 ```
 
 ## Author

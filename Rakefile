@@ -87,26 +87,6 @@ task :build_mruby => [:clean, :generate_headers, :generate_modulemap] do
   FileUtils.cp 'mruby-umbrella.h', 'ios/MRuby.framework/Headers'
 end
 
-# desc 'Build MRuby for iOS do not support module'
-# task :build_mruby => [:clean, :generate_headers] do
-#   puts ">>>>>>> build_mruby task"
-#   Dir.chdir('mruby') do
-#     ENV['MRUBY_CONFIG'] = '../build_config.rb'
-#     system 'rake'
-
-#     Dir.chdir('build') do
-#       FileUtils.mkdir_p 'ios-universal'
-#       `lipo ios/lib/libmruby.a ios-simulator/lib/libmruby.a -create -output ios-universal/libmruby.a`
-#     end
-#   end
-
-#   FileUtils.mkdir_p 'ios/MRuby.framework/Headers'
-#   #FileUtils.cp_r 'mruby/include/.', 'ios/MRuby.framework/Headers'
-#   FileUtils.cp_r 'Headers/.', 'ios/MRuby.framework/Headers'
-#   FileUtils.cp 'Info.plist', 'ios/MRuby.framework'
-#   FileUtils.cp 'mruby/build/ios-universal/libmruby.a', 'ios/MRuby.framework/MRuby'
-# end
-
 desc 'Set MRuby submodule to latest release'
 task :mruby_latest do
   system 'git submodule update --remote && '\
@@ -120,22 +100,4 @@ task :mruby_master do
          'cd mruby && '\
          'git checkout master && '\
          'git pull --rebase'
-end
-
-
-desc 'Set MRuby submodule to stable branch'
-task :mruby_stable do
-  system 'git submodule update --remote && '\
-         'cd mruby && '\
-         'git checkout stable && '\
-         'git pull --rebase'
-end
-
-desc 'Set Mruby submodule to specified tag'
-task :mruby_tag do |task, args|
-  tag = args.extras[0]
-  puts "checkout to #{tag}"
-  system  'git submodule update --remote &&' \
-          'cd mruby &&' \
-          "git checkout #{tag}"
 end
