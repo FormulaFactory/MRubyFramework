@@ -3,7 +3,7 @@
 ## Installation
 
 ```ruby
-pod 'MRubyFramework'
+pod 'MRubyFramework', '2.1.2'
 ```
 
 ## Build your framework
