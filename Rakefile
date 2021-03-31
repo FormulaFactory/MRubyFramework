@@ -80,6 +80,8 @@ task :build_mruby => [:clean, :generate_headers, :generate_modulemap] do
 
   FileUtils.mkdir_p 'ios/MRuby.framework/Headers'
   #FileUtils.cp_r 'mruby/include/.', 'ios/MRuby.framework/Headers'
+  FileUtils.cp 'mruby/build/armv7/include/mruby/presym/id.h', 'Headers/presym'
+  FileUtils.cp 'mruby/build/armv7/include/mruby/presym/table.h', 'Headers/presym'
   FileUtils.cp_r 'Headers/.', 'ios/MRuby.framework/Headers'
   FileUtils.cp 'Info.plist', 'ios/MRuby.framework'
   FileUtils.cp 'mruby/build/ios-universal/libmruby.a', 'ios/MRuby.framework/MRuby'

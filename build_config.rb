@@ -8,7 +8,6 @@ IOSSIM_ARCHS = %W(i386 x86_64)
 MRuby::Build.new do |conf|
   toolchain :clang
   conf.gembox 'default'
-  conf.disable_presym
 end
 
 IOS_ARCHS.each do |arch|
@@ -17,7 +16,6 @@ IOS_ARCHS.each do |arch|
   flags << arch
   MRuby::CrossBuild.new(arch) do |conf|
     conf.gembox 'default'
-    conf.disable_presym
 
     conf.cc do |cc|
       cc.command = CC
@@ -38,7 +36,6 @@ IOSSIM_ARCHS.each do |arch|
   flags << arch
   MRuby::CrossBuild.new(arch) do |conf|
     conf.gembox 'default'
-    conf.disable_presym
     
     conf.cc do |cc|
       cc.command = CC
