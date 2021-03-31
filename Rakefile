@@ -1,4 +1,4 @@
-mruby_version = '2.1.2'
+mruby_version = '3.0.0'
 exclude_headers = ['debug.h', 'boxing_no.h', 'boxing_nan.h', 'boxing_word.h', 'opcode.h', 'ops.h']
 
 task default: 'build_mruby'
@@ -42,7 +42,7 @@ task :generate_modulemap do
     file.puts '#import <Foundation/Foundation.h>'
     file.puts '#import "mruby.h"'
     Dir.chdir "Headers" do 
-      Dir["*.h"].each do |f|
+      Dir["**/*.h"].each do |f|
         next if exclude_headers.include?(f)
         next if f == 'mruby.h'
         file.puts "#import \"#{f}\""
@@ -74,17 +74,20 @@ task :build_mruby => [:clean, :generate_headers, :generate_modulemap] do
 
     Dir.chdir('build') do
       FileUtils.mkdir_p 'ios-universal'
-      `lipo ios/lib/libmruby.a ios-simulator/lib/libmruby.a -create -output ios-universal/libmruby.a`
+      `lipo armv7/lib/libmruby.a arm64/lib/libmruby.a arm64e/lib/libmruby.a x86_64/lib/libmruby.a i386/lib/libmruby.a -create -output ios-universal/libmruby.a`
     end
   end
 
   FileUtils.mkdir_p 'ios/MRuby.framework/Headers'
   #FileUtils.cp_r 'mruby/include/.', 'ios/MRuby.framework/Headers'
+  FileUtils.cp 'mruby/build/armv7/include/mruby/presym/id.h', 'Headers/presym'
+  FileUtils.cp 'mruby/build/armv7/include/mruby/presym/table.h', 'Headers/presym'
   FileUtils.cp_r 'Headers/.', 'ios/MRuby.framework/Headers'
   FileUtils.cp 'Info.plist', 'ios/MRuby.framework'
   FileUtils.cp 'mruby/build/ios-universal/libmruby.a', 'ios/MRuby.framework/MRuby'
   FileUtils.cp_r 'Modules/.', 'ios/MRuby.framework/Modules'
   FileUtils.cp 'mruby-umbrella.h', 'ios/MRuby.framework/Headers'
+  puts "sucess!!!"
 end
 
 desc 'Set MRuby submodule to latest release'

@@ -1,38 +1,56 @@
 CC = `xcrun -find clang`.strip
 
 def sdk_path(device); `xcrun --sdk #{device} --show-sdk-path`.strip end
-IOS_FLAGS = %W(-Os -arch armv7 -arch arm64 -arch arm64e -isysroot #{sdk_path 'iphoneos'})
-IOSSIM_FLAGS = %W(-Os -arch i386 -arch x86_64 -isysroot #{sdk_path 'iphonesimulator'})
+
+IOS_ARCHS = %W(armv7 arm64 arm64e)
+IOSSIM_ARCHS = %W(i386 x86_64)
 
 MRuby::Build.new do |conf|
   toolchain :clang
   conf.gembox 'default'
 end
 
-MRuby::CrossBuild.new('ios') do |conf|
-  conf.gembox 'default'
+IOS_ARCHS.each do |arch|
+  flags = %W(-Os -isysroot #{sdk_path 'iphoneos'})
+  flags << "-arch"
+  flags << arch
+  MRuby::CrossBuild.new(arch) do |conf|
+    conf.gembox 'default'
 
-  conf.cc do |cc|
-    cc.command = CC
-    cc.flags = IOS_FLAGS
+    conf.cc do |cc|
+      cc.command = CC
+      cc.flags = flags
+    end
+  
+    conf.linker do |linker|
+      linker.command = CC
+      linker.flags = flags
+    end
   end
-
-  conf.linker do |linker|
-    linker.command = CC
-    linker.flags = IOS_FLAGS
-  end
+  
 end
 
-MRuby::CrossBuild.new('ios-simulator') do |conf|
-  conf.gembox 'default'
-
-  conf.cc do |cc|
-    cc.command = CC
-    cc.flags = IOSSIM_FLAGS
+IOSSIM_ARCHS.each do |arch|
+  flags = %W(-O -isysroot #{sdk_path 'iphonesimulator'})
+  flags << "-arch"
+  flags << arch
+  MRuby::CrossBuild.new(arch) do |conf|
+    conf.gembox 'default'
+    
+    conf.cc do |cc|
+      cc.command = CC
+      cc.flags = flags
+    end
+  
+    conf.linker do |linker|
+      linker.command = CC
+      linker.flags = flags
+    end
   end
 
-  conf.linker do |linker|
-    linker.command = CC
-    linker.flags = IOSSIM_FLAGS
-  end
 end
+
+
+
+
+

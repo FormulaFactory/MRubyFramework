@@ -4,8 +4,10 @@
 #import "dump.h"
 #import "range.h"
 #import "version.h"
+#import "presym.h"
 #import "proc.h"
 #import "numeric.h"
+#import "endian.h"
 #import "data.h"
 #import "re.h"
 #import "gc.h"
@@ -22,6 +24,9 @@
 #import "object.h"
 #import "throw.h"
 #import "hash.h"
+#import "presym/scanning.h"
+#import "presym/enable.h"
+#import "presym/disable.h"
 #import "string.h"
 FOUNDATION_EXPORT double MRubyVersionNumber;
 FOUNDATION_EXPORT const unsigned char MRubyVersionString[];
