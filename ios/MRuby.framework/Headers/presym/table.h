@@ -71,6 +71,7 @@ static const uint16_t presym_length_table[] = {
   2,	/* lz */
   2,	/* nk */
   2,	/* nv */
+  2,	/* op */
   2,	/* rs */
   2,	/* sa */
   2,	/* sc */
@@ -93,6 +94,7 @@ static const uint16_t presym_length_table[] = {
   3,	/* blk */
   3,	/* buf */
   3,	/* chr */
+  3,	/* cls */
   3,	/* cmd */
   3,	/* cmp */
   3,	/* cos */
@@ -102,7 +104,6 @@ static const uint16_t presym_length_table[] = {
   3,	/* div */
   3,	/* dup */
   3,	/* end */
-  3,	/* env */
   3,	/* eof */
   3,	/* erf */
   3,	/* exp */
@@ -312,6 +313,7 @@ static const uint16_t presym_length_table[] = {
   4,	/* user */
   4,	/* utc? */
   4,	/* vals */
+  4,	/* warn */
   4,	/* wday */
   4,	/* yday */
   4,	/* year */
@@ -471,8 +473,10 @@ static const uint16_t presym_length_table[] = {
   6,	/* Symbol */
   6,	/* T_CPTR */
   6,	/* T_DATA */
+  6,	/* T_FREE */
   6,	/* T_HASH */
   6,	/* T_PROC */
+  6,	/* T_TRUE */
   6,	/* WRONLY */
   6,	/* __id__ */
   6,	/* _getwd */
@@ -567,7 +571,6 @@ static const uint16_t presym_length_table[] = {
   7,	/* AF_INET */
   7,	/* AF_LINK */
   7,	/* AF_UNIX */
-  7,	/* Binding */
   7,	/* Complex */
   7,	/* DEFAULT */
   7,	/* EPSILON */
@@ -593,10 +596,13 @@ static const uint16_t presym_length_table[] = {
   7,	/* TMPFILE */
   7,	/* T_ARRAY */
   7,	/* T_CLASS */
+  7,	/* T_FALSE */
   7,	/* T_FIBER */
   7,	/* T_FLOAT */
   7,	/* T_RANGE */
+  7,	/* T_UNDEF */
   7,	/* Yielder */
+  7,	/* __div__ */
   7,	/* __lines */
   7,	/* _accept */
   7,	/* _lastai */
@@ -718,6 +724,7 @@ static const uint16_t presym_length_table[] = {
   8,	/* T_OBJECT */
   8,	/* T_SCLASS */
   8,	/* T_STRING */
+  8,	/* T_SYMBOL */
   8,	/* __ary_eq */
   8,	/* __delete */
   8,	/* __send__ */
@@ -803,7 +810,6 @@ static const uint16_t presym_length_table[] = {
   9,	/* SO_SNDBUF */
   9,	/* TCPServer */
   9,	/* TCPSocket */
-  9,	/* T_COMPLEX */
   9,	/* T_INTEGER */
   9,	/* T_ISTRUCT */
   9,	/* TrueClass */
@@ -893,7 +899,6 @@ static const uint16_t presym_length_table[] = {
   10,	/* SOCK_DGRAM */
   10,	/* SOL_SOCKET */
   10,	/* TCP_MAXSEG */
-  10,	/* T_RATIONAL */
   10,	/* UNIXServer */
   10,	/* UNIXSocket */
   10,	/* __case_eqq */
@@ -1171,6 +1176,7 @@ static const uint16_t presym_length_table[] = {
   21,	/* remove_class_variable */
   22,	/* @do_not_reverse_lookup */
   22,	/* do_not_reverse_lookup= */
+  22,	/* original_operator_name */
   23,	/* @@do_not_reverse_lookup */
   23,	/* MCAST_JOIN_SOURCE_GROUP */
   23,	/* class_variable_defined? */
@@ -1256,6 +1262,7 @@ static const char * const presym_name_table[] = {
   "lz",
   "nk",
   "nv",
+  "op",
   "rs",
   "sa",
   "sc",
@@ -1278,6 +1285,7 @@ static const char * const presym_name_table[] = {
   "blk",
   "buf",
   "chr",
+  "cls",
   "cmd",
   "cmp",
   "cos",
@@ -1287,7 +1295,6 @@ static const char * const presym_name_table[] = {
   "div",
   "dup",
   "end",
-  "env",
   "eof",
   "erf",
   "exp",
@@ -1497,6 +1504,7 @@ static const char * const presym_name_table[] = {
   "user",
   "utc?",
   "vals",
+  "warn",
   "wday",
   "yday",
   "year",
@@ -1656,8 +1664,10 @@ static const char * const presym_name_table[] = {
   "Symbol",
   "T_CPTR",
   "T_DATA",
+  "T_FREE",
   "T_HASH",
   "T_PROC",
+  "T_TRUE",
   "WRONLY",
   "__id__",
   "_getwd",
@@ -1752,7 +1762,6 @@ static const char * const presym_name_table[] = {
   "AF_INET",
   "AF_LINK",
   "AF_UNIX",
-  "Binding",
   "Complex",
   "DEFAULT",
   "EPSILON",
@@ -1778,10 +1787,13 @@ static const char * const presym_name_table[] = {
   "TMPFILE",
   "T_ARRAY",
   "T_CLASS",
+  "T_FALSE",
   "T_FIBER",
   "T_FLOAT",
   "T_RANGE",
+  "T_UNDEF",
   "Yielder",
+  "__div__",
   "__lines",
   "_accept",
   "_lastai",
@@ -1903,6 +1915,7 @@ static const char * const presym_name_table[] = {
   "T_OBJECT",
   "T_SCLASS",
   "T_STRING",
+  "T_SYMBOL",
   "__ary_eq",
   "__delete",
   "__send__",
@@ -1988,7 +2001,6 @@ static const char * const presym_name_table[] = {
   "SO_SNDBUF",
   "TCPServer",
   "TCPSocket",
-  "T_COMPLEX",
   "T_INTEGER",
   "T_ISTRUCT",
   "TrueClass",
@@ -2078,7 +2090,6 @@ static const char * const presym_name_table[] = {
   "SOCK_DGRAM",
   "SOL_SOCKET",
   "TCP_MAXSEG",
-  "T_RATIONAL",
   "UNIXServer",
   "UNIXSocket",
   "__case_eqq",
@@ -2356,6 +2367,7 @@ static const char * const presym_name_table[] = {
   "remove_class_variable",
   "@do_not_reverse_lookup",
   "do_not_reverse_lookup=",
+  "original_operator_name",
   "@@do_not_reverse_lookup",
   "MCAST_JOIN_SOURCE_GROUP",
   "class_variable_defined?",

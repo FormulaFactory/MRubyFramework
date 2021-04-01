@@ -21,7 +21,7 @@ typedef struct mrb_shared_array {
   mrb_value *ptr;
 } mrb_shared_array;
 
-#if defined(MRB_32BIT) && defined(MRB_NO_BOXING) && !defined(MRB_USE_FLOAT32)
+#if defined(MRB_32BIT) && defined(MRB_NO_BOXING)
 # define MRB_ARY_NO_EMBED
 # define MRB_ARY_EMBED_LEN_MAX 0
 #else
@@ -65,7 +65,7 @@ struct RArray {
 #define ARY_EMBED_PTR(a) ((a)->as.ary)
 #endif
 
-#define ARY_LEN(a) (ARY_EMBED_P(a)?ARY_EMBED_LEN(a):(mrb_int)(a)->as.heap.len)
+#define ARY_LEN(a) (ARY_EMBED_P(a)?ARY_EMBED_LEN(a):(a)->as.heap.len)
 #define ARY_PTR(a) (ARY_EMBED_P(a)?ARY_EMBED_PTR(a):(a)->as.heap.ptr)
 #define RARRAY_LEN(a) ARY_LEN(RARRAY(a))
 #define RARRAY_PTR(a) ARY_PTR(RARRAY(a))
@@ -107,7 +107,7 @@ MRB_API mrb_value mrb_ary_new(mrb_state *mrb);
  *      Array[value1, value2, ...]
  *
  * @param mrb The mruby state reference.
- * @param size The number of values.
+ * @param size The numer of values.
  * @param vals The actual values.
  * @return The initialized array.
  */
