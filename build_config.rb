@@ -11,7 +11,7 @@ MRuby::Build.new do |conf|
 end
 
 IOS_ARCHS.each do |arch|
-  flags = %W(-Os -isysroot #{sdk_path 'iphoneos'})
+  flags = %W(-Os -fembed-bitcode -isysroot #{sdk_path 'iphoneos'})
   flags << "-arch"
   flags << arch
   MRuby::CrossBuild.new(arch) do |conf|
@@ -31,7 +31,7 @@ IOS_ARCHS.each do |arch|
 end
 
 IOSSIM_ARCHS.each do |arch|
-  flags = %W(-O -isysroot #{sdk_path 'iphonesimulator'})
+  flags = %W(-Os -fembed-bitcode -isysroot #{sdk_path 'iphonesimulator'})
   flags << "-arch"
   flags << arch
   MRuby::CrossBuild.new(arch) do |conf|

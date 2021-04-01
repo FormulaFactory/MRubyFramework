@@ -107,12 +107,12 @@ static const unsigned int IEEE754_INFINITY_BITS_SINGLE = 0x7F800000;
 enum mrb_vtype {
   MRB_TT_FALSE = 0,
   MRB_TT_TRUE,
-  MRB_TT_SYMBOL,
-  MRB_TT_UNDEF,
-  MRB_TT_FREE,
   MRB_TT_FLOAT,
   MRB_TT_INTEGER,
+  MRB_TT_SYMBOL,
+  MRB_TT_UNDEF,
   MRB_TT_CPTR,
+  MRB_TT_FREE,
   MRB_TT_OBJECT,
   MRB_TT_CLASS,
   MRB_TT_MODULE,
@@ -129,8 +129,6 @@ enum mrb_vtype {
   MRB_TT_FIBER,
   MRB_TT_ISTRUCT,
   MRB_TT_BREAK,
-  MRB_TT_COMPLEX,
-  MRB_TT_RATIONAL,
   MRB_TT_MAXDEFINE
 };
 
@@ -179,7 +177,7 @@ struct RCptr {
 #endif
 
 #ifndef mrb_immediate_p
-#define mrb_immediate_p(o) (mrb_type(o) <= MRB_TT_CPTR)
+#define mrb_immediate_p(o) (mrb_type(o) < MRB_TT_FREE)
 #endif
 #ifndef mrb_integer_p
 #define mrb_integer_p(o) (mrb_type(o) == MRB_TT_INTEGER)

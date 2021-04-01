@@ -20,7 +20,6 @@ enum irep_pool_type {
   IREP_TT_SSTR  = 2,          /* string (static) */
   IREP_TT_INT32 = 1,          /* 32bit integer */
   IREP_TT_INT64 = 3,          /* 64bit integer */
-  IREP_TT_BIGINT = 7,         /* big integer (not yet supported) */
   IREP_TT_FLOAT = 5,          /* float (double/float) */
 };
 
@@ -32,7 +31,9 @@ typedef struct mrb_pool_value {
   union {
     const char *str;
     int32_t i32;
+#if defined(MRB_64BIT) || defined(MRB_INT64)
     int64_t i64;
+#endif
 #ifndef MRB_NO_FLOAT
     mrb_float f;
 #endif
