@@ -1,8 +1,8 @@
 CC = `xcrun -find clang`.strip
 
 def sdk_path(device); `xcrun --sdk #{device} --show-sdk-path`.strip end
-IOS_FLAGS = %W(-Os -arch armv7 -arch arm64 -arch arm64e -isysroot #{sdk_path 'iphoneos'})
-IOSSIM_FLAGS = %W(-Os -arch i386 -arch x86_64 -isysroot #{sdk_path 'iphonesimulator'})
+IOS_FLAGS = %W(-Os -arch armv7 -arch arm64 -arch arm64e -fembed-bitcode -isysroot #{sdk_path 'iphoneos'})
+IOSSIM_FLAGS = %W(-Os -arch i386 -arch x86_64 -fembed-bitcode -isysroot #{sdk_path 'iphonesimulator'})
 
 MRuby::Build.new do |conf|
   toolchain :clang
